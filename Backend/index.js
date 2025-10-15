@@ -64,7 +64,10 @@ const HR = require("./models/Hr");
 const Employee = require("./models/Employee");
 const Recruitment = require("./models/Recruitment");
 
-mongoose.connect("mongodb://127.0.0.1:27017/employeeDB")
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
