@@ -1,6 +1,6 @@
 const Payroll = require("../models/Payroll");
 const Employee = require("../models/Employee");
-const EmployeeHR = require("../models/EmployeeHR");
+const EmployeeHR = require("../models/Employeehr");
 const PDFDocument = require("pdfkit");
 
 // Admin can view all payrolls
