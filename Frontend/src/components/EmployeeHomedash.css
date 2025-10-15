@@ -1,0 +1,122 @@
+.employee-home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #6a11cb, #2575fc, #ff6a00, #ffcc00);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.employee-home::before,
+.employee-home::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  filter: blur(100px);
+  z-index: 0;
+}
+
+.employee-home::before {
+  width: 400px;
+  height: 400px;
+  top: -100px;
+  left: -100px;
+  animation: float1 20s ease-in-out infinite alternate;
+}
+
+.employee-home::after {
+  width: 500px;
+  height: 500px;
+  bottom: -150px;
+  right: -150px;
+  animation: float2 25s ease-in-out infinite alternate;
+}
+
+@keyframes float1 {
+  0% { transform: translateY(0) translateX(0); }
+  100% { transform: translateY(50px) translateX(50px); }
+}
+
+@keyframes float2 {
+  0% { transform: translateY(0) translateX(0); }
+  100% { transform: translateY(-50px) translateX(-50px); }
+}
+
+.employee-home > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Grid layout ===== */
+.content-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  justify-content: center;
+  gap: 30px;
+  width: 90%;
+  max-width: 1000px;
+}
+
+/* ===== Card styling ===== */
+.dashboard-card {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 25px;
+  border-radius: 18px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  transition: transform 0.4s, box-shadow 0.4s;
+  backdrop-filter: blur(10px);
+  height: 220px; /* fixed height for internal scroll */
+  overflow-y: auto; /* enables internal scroll */
+}
+
+/* ===== Glowing internal scrollbar ===== */
+.dashboard-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dashboard-card::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.dashboard-card::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+}
+
+.dashboard-card::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+}
+
+.dashboard-card h2 {
+  margin-bottom: 12px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.dashboard-card p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0 auto;
+}

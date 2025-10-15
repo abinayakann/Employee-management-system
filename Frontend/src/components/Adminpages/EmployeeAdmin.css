@@ -1,0 +1,160 @@
+.admin-employee {
+  max-width: 1300px;
+  margin: 20px auto;
+  padding: 25px;
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+
+/* Page Title */
+.page-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* Search */
+.search-bar input {
+  padding: 10px 14px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 0.95rem;
+  transition: all 0.3s;
+}
+
+.search-bar input:focus {
+  border-color: #6c5ce7;
+  box-shadow: 0 0 8px rgba(108, 92, 231, 0.2);
+}
+
+/* Table */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  margin-top: 15px;
+}
+
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+  font-size: 0.95rem;
+}
+
+.employee-table th,
+.employee-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #444;
+  text-align: left;
+}
+
+.employee-table th {
+  background: rgba(108, 92, 231, 0.8);
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.employee-table tr:hover td {
+  background: rgba(108, 92, 231, 0.1);
+  transition: 0.3s;
+}
+
+/* Badges */
+.badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.badge.admin { background: #6c5ce7; color: #fff; }
+.badge.hr { background: #00b894; color: #fff; }
+
+.readonly {
+  color: #999;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Action Buttons */
+.actions button {
+  padding: 6px 12px;
+  margin-right: 6px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.actions button:hover {
+  opacity: 0.85;
+}
+
+.actions button.danger {
+  background: #ef4444;
+  color: #fff;
+}
+
+.actions button:not(.danger) {
+  background: #6c5ce7;
+  color: #fff;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.5);
+  display:flex; align-items:center; justify-content:center;
+  z-index:1000;
+}
+
+.modal-content {
+  background: #1e1e2f;
+  color: #f3f4f8;
+  padding: 20px;
+  border-radius: 12px;
+  width: 420px;
+  max-width: 90%;
+}
+
+.modal-content input {
+  display: block;
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background: #2b2b3d;
+  color: #f3f4f8;
+  outline: none;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-actions button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.modal-actions button:hover { opacity: 0.9; }
+
+.no-data {
+  text-align: center;
+  padding: 25px;
+  font-style: italic;
+  color: #ccc;
+}

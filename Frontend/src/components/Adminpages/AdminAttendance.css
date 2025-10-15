@@ -1,0 +1,148 @@
+.attendance-container {
+  padding: 25px;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f0f4f8;
+  color: #333;
+  max-width: 1200px;
+  margin: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.filters select {
+  padding: 8px 14px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.attendance-card {
+  padding: 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1.1rem;
+}
+
+.attendance-card i {
+  font-size: 1.5rem;
+}
+
+.attendance-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.present { background: #d4edda; color: #155724; }
+.absent { background: #f8d7da; color: #721c24; }
+.late { background: #fff3cd; color: #856404; }
+.leave { background: #cce5ff; color: #004085; }
+
+.chart-container {
+  margin-bottom: 30px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.attendance-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: 50px;
+}
+
+.attendance-table thead {
+  background: #007bff;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.attendance-table th,
+.attendance-table td {
+  padding: 12px 18px;
+  text-align: center;
+}
+
+.attendance-table tbody tr:nth-child(odd) {
+  background-color: #f7f9fc;
+}
+
+.attendance-table tbody tr:nth-child(even) {
+  background-color: #e9f0f7;
+}
+
+.attendance-table tbody tr:hover {
+  background-color: #d0e4ff;
+  transform: scale(1.01);
+  transition: all 0.2s ease;
+}
+
+/* Status badges */
+.status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.status.present {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status.absent {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status.late {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status.leave {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+
+.attendance-table .status.present { color: #28a745; font-weight: 600; }
+.attendance-table .status.absent { color: #dc3545; font-weight: 600; }
+.attendance-table .status.late { color: #fd7e14; font-weight: 600; }
+.attendance-table .status.leave { color: #007bff; font-weight: 600; }

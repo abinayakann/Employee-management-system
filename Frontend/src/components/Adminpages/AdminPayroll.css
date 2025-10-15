@@ -1,0 +1,99 @@
+.admin-payroll {
+  padding: 30px;
+  min-height: 100vh;
+  background: #1e1e2f;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+}
+
+/* Page Title */
+.page-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  font-weight: 700;
+  color: #f5f5f5;
+}
+
+/* Table wrapper for scrolling on smaller screens */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+/* Payroll Table */
+.payroll-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 0.95rem;
+}
+
+.payroll-table th,
+.payroll-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.payroll-table th {
+  background: #2b2b3d;
+  color: #f9f9f9;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.payroll-table td {
+  background: #1e1e2f;
+  color: #f1f1f1;
+}
+
+.payroll-table tr:hover td {
+  background: #33355a;
+  transition: 0.3s;
+}
+
+/* Status Badges */
+.status-badge {
+  padding: 6px 14px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: capitalize;
+}
+
+.status-badge.paid {
+  background: linear-gradient(135deg, #00b894, #55efc4);
+  color: #fff;
+}
+
+.status-badge.pending {
+  background: linear-gradient(135deg, #fdcb6e, #ffeaa7);
+  color: #333;
+}
+
+/* Buttons */
+button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.download-btn {
+  background: #007bff;
+  color: #fff;
+}
+
+.download-btn:hover {
+  background: #0056b3;
+}
+
+/* No Data Placeholder */
+.no-data {
+  text-align: center;
+  padding: 40px;
+  font-style: italic;
+  opacity: 0.8;
+}

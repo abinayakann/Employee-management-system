@@ -1,0 +1,146 @@
+/* Root Theme Variables */
+:root {
+  --sidebar-width: 250px;
+  --card-radius: 12px;
+  --primary-color: #4CAF50;
+
+  --light-bg: #f8f9fb;
+  --light-card: #fff;
+  --light-text: #222;
+  --light-border: #e6e9ef;
+  --light-shadow: rgba(0,0,0,0.1);
+
+  --dark-bg: #12121a;
+  --dark-card: #1f1f30;
+  --dark-text: #f3f4f8;
+  --dark-border: #333448;
+  --dark-shadow: rgba(0,0,0,0.4);
+}
+
+/* HR Dashboard Container */
+.hr-home-inner {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+/* Page title */
+.hr-home-inner h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: inherit;
+}
+
+/* Quick Stats Cards Container */
+.quick-stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Individual Stat Card */
+.quick-stat-card {
+  background-color: var(--light-card);
+  border-radius: var(--card-radius);
+  padding: 1.2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  border-top: 5px solid var(--primary-color);
+}
+
+.quick-stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.quick-stat-icon {
+  font-size: 2rem;
+  margin-bottom: 0.6rem;
+  color: var(--primary-color);
+}
+
+.quick-stat-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: inherit;
+}
+
+.quick-stat-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: inherit;
+}
+
+/* Charts Container */
+.charts-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Chart Card */
+.chart-card {
+  background-color: var(--light-card);
+  padding: 1rem;
+  border-radius: var(--card-radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.chart-card h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: inherit;
+}
+
+/* Dark / Light Theme Overrides */
+.light-theme {
+  background-color: var(--light-bg);
+  color: var(--light-text);
+}
+
+.light-theme .quick-stat-card,
+.light-theme .chart-card {
+  background-color: var(--light-card);
+  color: var(--light-text);
+  box-shadow: 0 4px 12px var(--light-shadow);
+}
+
+.dark-theme {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+.dark-theme .quick-stat-card,
+.dark-theme .chart-card {
+  background-color: var(--dark-card);
+  color: var(--dark-text);
+  box-shadow: 0 4px 12px var(--dark-shadow);
+}
+
+.dark-theme .quick-stat-value {
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .charts-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .quick-stats-container {
+    grid-template-columns: 1fr;
+  }
+}

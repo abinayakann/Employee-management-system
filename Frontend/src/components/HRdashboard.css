@@ -1,0 +1,214 @@
+/* Root theme variables */
+:root {
+  --sidebar-width: 250px;
+  --sidebar-collapsed-width: 70px;
+  --card-radius: 12px;
+  --primary-color: #4CAF50;
+
+  --light-bg: #f8f9fb;
+  --light-sidebar: #fff;
+  --light-text: #222;
+  --light-hover: #f0f0f0;
+  --light-active: #00adb5;
+  --light-content: #fff;
+  --light-footer: #eaeaea;
+
+  --dark-bg: #1e1e2f;
+  --dark-sidebar: #2a2a40;
+  --dark-text: #f3f4f8;
+  --dark-hover: #35354d;
+  --dark-active: #00adb5;
+  --dark-content: #2a2a40;
+  --dark-footer: #2a2a40;
+}
+
+/* Dashboard container */
+.hr-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: var(--light-bg);
+  color: var(--light-text);
+  transition: all 0.3s ease;
+}
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar-width);
+  background: var(--light-sidebar);
+  transition: width 0.3s ease, background 0.3s ease;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 10px;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.closed {
+  width: var(--sidebar-collapsed-width);
+}
+
+/* Sidebar header */
+.sidebar-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: inherit;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.toggle-btn:hover {
+  transform: rotate(20deg);
+  color: var(--primary-color);
+}
+
+/* Profile */
+.profile {
+  text-align: center;
+  margin: 20px 0;
+}
+.profile-pic {
+  font-size: 70px;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+.profile h3 {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+.profile .tagline {
+  font-size: 13px;
+  color: #888;
+}
+
+/* Sidebar menu */
+.menu {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+.menu li {
+  margin: 12px 0;
+}
+.menu li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.3s, color 0.3s;
+}
+.menu li a:hover {
+  background: var(--light-hover);
+}
+.menu li a.active {
+  background: var(--light-active);
+  color: #fff;
+}
+.menu li a svg {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--light-content);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Topbar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Content area */
+.content-area {
+  flex: 1;
+  background: var(--light-content);
+  border-radius: var(--card-radius);
+  padding: 20px;
+  margin: 15px;
+  overflow-y: auto;
+}
+
+/* Footer */
+.footer {
+  background: var(--light-footer);
+  text-align: center;
+  padding: 12px;
+  font-size: 14px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Light Theme */
+.light-theme {
+  --bg-color: var(--light-bg);
+  --sidebar-bg: var(--light-sidebar);
+  --sidebar-hover: var(--light-hover);
+  --sidebar-active: var(--light-active);
+  --content-bg: var(--light-content);
+  --footer-bg: var(--light-footer);
+  color: var(--light-text);
+}
+
+/* Dark Theme */
+.dark-theme {
+  --bg-color: var(--dark-bg);
+  --sidebar-bg: var(--dark-sidebar);
+  --sidebar-hover: var(--dark-hover);
+  --sidebar-active: var(--dark-active);
+  --content-bg: var(--dark-content);
+  --footer-bg: var(--dark-footer);
+  color: var(--dark-text);
+}
+
+/* Dark Theme overrides for sidebar links */
+.dark-theme .menu li a:hover {
+  background: var(--sidebar-hover);
+}
+.dark-theme .menu li a.active {
+  background: var(--sidebar-active);
+  color: #fff;
+}
+
+/* Scrollbar */
+.content-area::-webkit-scrollbar {
+  width: 8px;
+}
+.content-area::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 4px;
+}
+.content-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    position: absolute;
+    left: -250px;
+    z-index: 1000;
+  }
+  .sidebar.open {
+    left: 0;
+  }
+  .main-content {
+    flex: 1;
+  }
+}

@@ -1,0 +1,110 @@
+/* General container */
+.employee-tasks {
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #1e1e2f, #2c2c50);
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Heading */
+.employee-tasks h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Table styling */
+.employee-tasks table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #2a2a40;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.employee-tasks th,
+.employee-tasks td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #444;
+  text-align: center;
+}
+
+.employee-tasks th {
+  background: linear-gradient(90deg, #3b82f6, #1e40af);
+  color: white;
+  font-weight: bold;
+}
+
+/* Hover effect for rows */
+.employee-tasks tbody tr:hover {
+  background: linear-gradient(90deg, #4caf50, #16a34a);
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+}
+
+/* Status select styling */
+.employee-tasks select {
+  padding: 0.3rem 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #666;
+  background: #1e1e2f;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.employee-tasks select:hover {
+  border-color: #4caf50;
+  transform: scale(1.05);
+}
+
+/* Messages */
+.employee-tasks p {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  color: #ccc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .employee-tasks table,
+  .employee-tasks thead,
+  .employee-tasks tbody,
+  .employee-tasks th,
+  .employee-tasks td,
+  .employee-tasks tr {
+    display: block;
+  }
+
+  .employee-tasks thead tr {
+    display: none;
+  }
+
+  .employee-tasks tbody tr {
+    margin-bottom: 1rem;
+    background: #2a2a40;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .employee-tasks td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border: none;
+    border-bottom: 1px solid #444;
+  }
+
+  .employee-tasks td::before {
+    content: attr(data-label);
+    font-weight: bold;
+  }
+
+  .employee-tasks td:last-child {
+    border-bottom: none;
+  }
+}

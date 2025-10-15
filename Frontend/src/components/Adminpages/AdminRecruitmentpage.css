@@ -1,0 +1,54 @@
+.admin-recruitment { padding: 25px; min-height: 100vh; font-family: "Segoe UI", sans-serif; }
+
+/* Page Title */
+.page-title { font-size: 26px; font-weight: 600; margin-bottom: 25px; }
+
+/* Jobs Section */
+.jobs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.job-card {
+  border-radius: 12px; padding: 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.job-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+.job-card h4 { margin-bottom: 8px; }
+.job-card .desc { font-size: 14px; margin-bottom: 10px; }
+.job-card .candidate-count { font-weight: 600; margin-bottom: 6px; }
+.job-card .posted { font-size: 12px; color: #888; }
+
+/* Candidates Table */
+.table-wrapper { overflow-x:auto; margin-top: 20px; border-radius: 12px; }
+.candidates-table { width: 100%; border-collapse: collapse; min-width: 900px; }
+.candidates-table th, .candidates-table td { padding: 12px 15px; border-bottom: 1px solid #444; text-align:left; }
+.candidates-table th { background: #6c5ce7; color:#fff; font-weight:600; }
+.candidates-table tr:hover td { background: rgba(108,92,231,0.08); }
+
+/* Status badges */
+.status { padding:4px 10px; border-radius:6px; font-weight:600; text-transform:capitalize; font-size:12px; }
+.status.pending { background:#fff3cd; color:#856404; }
+.status.hired { background:#d4edda; color:#155724; }
+.status.rejected { background:#f8d7da; color:#721c24; }
+
+/* Buttons */
+.approve-btn, .reject-btn {
+  padding:6px 12px; margin:2px; border:none; border-radius:6px; cursor:pointer; font-size:13px;
+}
+.approve-btn { background:#28a745; color:#fff; }
+.reject-btn { background:#dc3545; color:#fff; }
+.approve-btn:hover { opacity:0.9; }
+.reject-btn:hover { opacity:0.9; }
+
+/* Light Theme */
+.light-theme { background:#f9f9fb; color:#333; }
+.light-theme .job-card { background:#fff; border:1px solid #e2e2e2; }
+.light-theme .candidates-table th { background:#6c5ce7; color:#fff; }
+.light-theme .candidates-table tr:hover td { background: rgba(108,92,231,0.05); }
+
+/* Dark Theme */
+.dark-theme { background:#1e1e2f; color:#ddd; }
+.dark-theme .job-card { background:#2b2b3b; border:1px solid #444; color:#ddd; }
+.dark-theme .candidates-table th { background:#444; color:#fff; }
+.dark-theme .candidates-table tr:hover td { background: #333; }
+
+/* Loading & No Data */
+.loading, .no-data { text-align:center; font-size:16px; padding:20px; color:#aaa; }
