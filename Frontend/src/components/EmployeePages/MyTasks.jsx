@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../services/api";
 import "./tasks.css";
 
 const EmployeeTasks = () => {
@@ -10,7 +10,7 @@ const EmployeeTasks = () => {
   const fetchTasks = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/employee/tasks", {
+      const res = await API.get("/employee/tasks", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks(res.data.tasks || []);
@@ -25,8 +25,8 @@ const EmployeeTasks = () => {
   const handleStatusChange = async (id, newStatus) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.put(
-        `http://localhost:5000/api/employee/tasks/${id}/status`,
+      await API.put(
+        `/employee/tasks/${id}/status`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );

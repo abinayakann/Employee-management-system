@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import axios from "axios";
+import API from "../services/api";
 import "./Login.css"
 import { useNavigate } from "react-router-dom";
 import { FaUser, FaLock, FaSignInAlt } from "react-icons/fa";
@@ -14,7 +14,7 @@ const HRLogin = () => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post("http://localhost:5000/api/hr/login",
+      const { data } = await API.post("/hr/login",
               { HrID,password },
               { headers: { "Content-Type": "application/json" } }
             );

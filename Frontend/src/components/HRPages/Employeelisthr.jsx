@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../../services/api";
 import "./dashpagehr.css";
 
 const Listhr = () => {
@@ -29,7 +29,7 @@ const Listhr = () => {
   const fetchEmployees = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/hr/employeehr",
+      const res = await API.get("/hr/employeehr",
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setEmployees(res.data);
@@ -44,11 +44,11 @@ const Listhr = () => {
     try {
       const token = localStorage.getItem("token");
       if (editingId) {
-        await axios.put(`http://localhost:5000/api/hr/employeehr/${editingId}`, formData,
+        await API.put(`/hr/employeehr/${editingId}`, formData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
       } else {
-        await axios.post("http://localhost:5000/api/hr/employeehr", formData,
+        await API.post("/hr/employeehr", formData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
       }
@@ -73,7 +73,7 @@ const Listhr = () => {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/hr/employeehr/${id}` ,
+      await API.delete(`/hr/employeehr/${id}` ,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       fetchEmployees();

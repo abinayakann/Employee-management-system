@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../services/api";
 import "./AdminPayroll.css";
 
 const AdminPayroll = () => {
@@ -10,7 +10,7 @@ const AdminPayroll = () => {
     const fetchPayrolls = async () => {
       try {
         const token = getToken();
-        const res = await axios.get("http://localhost:5000/api/admin/payroll", {
+        const res = await API.get("/admin/payroll", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPayrolls(res.data);
@@ -24,8 +24,8 @@ const AdminPayroll = () => {
   const handleDownload = async (id) => {
     try {
       const token = getToken();
-      const res = await axios.get(
-        `http://localhost:5000/api/admin/payroll/download/${id}`,
+      const res = await API.get(
+        `/admin/payroll/download/${id}`,
         { headers: { Authorization: `Bearer ${token}` }, responseType: "blob" }
       );
 

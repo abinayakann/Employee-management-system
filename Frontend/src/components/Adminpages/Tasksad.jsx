@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../services/api";
 import "./TasksAd.css";
 
 const TasksAd = ({ theme = "light" }) => {
@@ -16,7 +16,7 @@ const TasksAd = ({ theme = "light" }) => {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get(`http://localhost:5000/api/admin/tasks?search=${search}`, {
+      const res = await API.get(`/admin/tasks?search=${search}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

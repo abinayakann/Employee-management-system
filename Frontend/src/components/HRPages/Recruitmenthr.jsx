@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../../services/api";
 import "./dashpagehr.css";
 
 const Recruitmenthr = () => {
@@ -17,7 +17,7 @@ const Recruitmenthr = () => {
   // Fetch Jobs
   const fetchJobs = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/hr/jobs");
+      const res = await API.get("/hr/jobs");
       setJobs(res.data);
     } catch (err) {
       console.error("Error fetching jobs:", err);
@@ -27,7 +27,7 @@ const Recruitmenthr = () => {
   // Fetch Candidates (aggregate from all jobs)
   const fetchCandidates = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/hr/jobs");
+      const res = await API.get("/hr/jobs");
       const allCandidates = res.data.flatMap(job =>
         job.candidates.map(c => ({ ...c, jobId: job._id }))
       );
@@ -46,7 +46,7 @@ const Recruitmenthr = () => {
   const handleAddJob = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/hr/jobs", {
+      const res = await API.post("/hr/jobs", {
         jobTitle,
         department,
         description,
@@ -67,8 +67,8 @@ const Recruitmenthr = () => {
     if (!candidateJobId) return alert("Please select a job");
 
     try {
-      const res = await axios.post(
-        `http://localhost:5000/api/hr/jobs/${candidateJobId}/candidates`,
+      const res = await API.post(
+        `/hr/jobs/${candidateJobId}/candidates`,
         {
           name: candidateName,
           email: candidateEmail,
@@ -88,8 +88,8 @@ const Recruitmenthr = () => {
   // Update Candidate Status
   const updateCandidateStatus = async (jobId, candidateId, status) => {
     try {
-      const res = await axios.put(
-        `http://localhost:5000/api/hr/jobs/${jobId}/candidate/${candidateId}`,
+      const res = await API.put(
+        `/hr/jobs/${jobId}/candidate/${candidateId}`,
         { status }
       );
       setCandidates(candidates.map(c =>
@@ -103,7 +103,7 @@ const Recruitmenthr = () => {
   // Delete Job
   const deleteJob = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/hr/jobs/${id}`);
+      await API.delete(`/hr/jobs/${id}`);
       setJobs(jobs.filter(j => j._id !== id));
       setCandidates(candidates.filter(c => c.jobId !== id));
     } catch (err) {
@@ -114,8 +114,8 @@ const Recruitmenthr = () => {
   // Delete Candidate
   const deleteCandidate = async (jobId, candidateId) => {
     try {
-      await axios.delete(
-        `http://localhost:5000/api/hr/jobs/${jobId}/candidate/${candidateId}`
+      await API.delete(
+        `/hr/jobs/${jobId}/candidate/${candidateId}`
       );
       setCandidates(candidates.filter(c => c._id !== candidateId));
     } catch (err) {

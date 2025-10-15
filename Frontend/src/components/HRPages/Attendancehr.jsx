@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../../services/api";
 import "./dashpagehr.css";
 
 const HRAttendance = () => {
@@ -14,7 +14,7 @@ const HRAttendance = () => {
 
   const fetchAttendance = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/hr/attendancehr", {
+      const res = await API.get("/hr/attendancehr", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setAttendance(res.data);

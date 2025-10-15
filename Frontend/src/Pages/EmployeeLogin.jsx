@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "./Login.css";
-import axios from "axios";
+import API from "../services/api";
 import { useNavigate } from 'react-router-dom';
 import { FaUser, FaLock } from "react-icons/fa";
 
@@ -18,8 +18,8 @@ const EmployeeLogin = () => {
 
     try {
       console.log("Sending login request:", { EmployeeID: employeeID, password });
-      const { data } = await axios.post(
-        "http://localhost:5000/api/employee/login",
+      const { data } = await API.post(
+        "/employee/login",
         { EmployeeID: employeeID, password },
         { headers: { "Content-Type": "application/json" } }
       );

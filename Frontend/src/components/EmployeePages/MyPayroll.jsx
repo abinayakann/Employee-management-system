@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../services/api";
 
 const EmployeePayroll = () => {
   const [payrolls, setPayrolls] = useState([]);
@@ -15,8 +15,8 @@ const EmployeePayroll = () => {
       const token = getToken();
       if (!token) throw new Error("No token found. Please login again.");
 
-      const res = await axios.get(
-        "http://localhost:5000/api/employee/payrollemp/my",
+      const res = await API.get(
+        "/employee/payrollemp/my",
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setPayrolls(res.data);
@@ -33,8 +33,8 @@ const EmployeePayroll = () => {
   const handleDownload = async (id, month) => {
     try {
       const token = getToken();
-      const res = await axios.get(
-        `http://localhost:5000/api/employee/payrollemp/download/${id}`,
+      const res = await API.get(
+        `/employee/payrollemp/download/${id}`,
         { headers: { Authorization: `Bearer ${token}` }, responseType: "blob" }
       );
       const url = window.URL.createObjectURL(new Blob([res.data]));

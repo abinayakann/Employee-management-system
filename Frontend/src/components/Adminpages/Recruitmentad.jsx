@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../services/api";
 import "./AdminRecruitmentpage.css";
 
 const AdminRecruitment = ({ theme = "dark" }) => {
@@ -11,8 +11,8 @@ const AdminRecruitment = ({ theme = "dark" }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const jobRes = await axios.get("http://localhost:5000/api/admin/recruitment/jobs", { headers: { Authorization: `Bearer ${token}` } });
-        const candidateRes = await axios.get("http://localhost:5000/api/admin/recruitment/candidates", { headers: { Authorization: `Bearer ${token}` } });
+        const jobRes = await API.get("/admin/recruitment/jobs", { headers: { Authorization: `Bearer ${token}` } });
+        const candidateRes = await API.get("/admin/recruitment/candidates", { headers: { Authorization: `Bearer ${token}` } });
 
         setJobs(Array.isArray(jobRes.data) ? jobRes.data : []);
         setCandidates(Array.isArray(candidateRes.data) ? candidateRes.data : []);
@@ -27,8 +27,8 @@ const AdminRecruitment = ({ theme = "dark" }) => {
 
   const updateStatus = async (jobId, candidateId, status) => {
     try {
-      await axios.put(
-        `http://localhost:5000/api/admin/recruitment/jobs/${jobId}/candidates/${candidateId}/status`,
+      await API.put(
+        `/admin/recruitment/jobs/${jobId}/candidates/${candidateId}/status`,
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       );

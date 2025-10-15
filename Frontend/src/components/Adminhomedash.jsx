@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../services/api";
 import {
   FaMoneyCheckAlt,
   FaClipboardList,
@@ -63,13 +63,13 @@ const AdminHome = () => {
           jobRes,
           candidateRes,
         ] = await Promise.all([
-          axios.get("http://localhost:5000/api/admin/employees", headers),
-          axios.get("http://localhost:5000/api/admin/tasks", headers),
-          axios.get("http://localhost:5000/api/admin/attendancead", headers),
-          axios.get("http://localhost:5000/api/admin/payroll", headers),
-          axios.get("http://localhost:5000/api/admin/recruitment/jobs", headers),
-          axios.get(
-            "http://localhost:5000/api/admin/recruitment/candidates",
+          API.get("/admin/employees", headers),
+          API.get("/admin/tasks", headers),
+          API.get("/admin/attendancead", headers),
+          API.get("/admin/payroll", headers),
+          API.get("/admin/recruitment/jobs", headers),
+          API.get(
+            "/admin/recruitment/candidates",
             headers
           ),
         ]);

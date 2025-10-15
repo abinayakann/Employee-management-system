@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../services/api";
 import "./attendance.css";
 
 const EmployeeAttendance = () => {
@@ -12,8 +12,8 @@ const EmployeeAttendance = () => {
 
   const fetchAttendance = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/employee/attendance/my",
+      const res = await API.get(
+        "/employee/attendance/my",
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setRecords(res.data);
@@ -44,8 +44,8 @@ const EmployeeAttendance = () => {
 
   const handleCheckIn = async () => {
     try {
-      await axios.post(
-        "http://localhost:5000/api/employee/attendance/checkin",
+      await API.post(
+        "/employee/attendance/checkin",
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -58,8 +58,8 @@ const EmployeeAttendance = () => {
 
   const handleCheckOut = async () => {
     try {
-      await axios.post(
-        "http://localhost:5000/api/employee/attendance/checkout",
+      await API.post(
+        "/employee/attendance/checkout",
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import axios from "axios";
+import API from "../services/api";
 import {
   FaUsers,
   FaClipboardList,
@@ -47,7 +47,7 @@ const HRDashboardHome = () => {
 
         const safeGet = async (url) => {
           try {
-            const res = await axios.get(url, headers);
+            const res = await API.get(url, headers);
             return res.data;
           } catch {
             return [];
@@ -61,11 +61,11 @@ const HRDashboardHome = () => {
           payrollRes,
           jobsRes,
         ] = await Promise.all([
-          safeGet("http://localhost:5000/api/hr/employeehr"),
-          safeGet("http://localhost:5000/api/hr/attendancehr"),
-          safeGet("http://localhost:5000/api/hr/taskshr"),
-          safeGet("http://localhost:5000/api/hr/payrollhr"),
-          safeGet("http://localhost:5000/api/hr/jobs"),
+          safeGet("/hr/employeehr"),
+          safeGet("/hr/attendancehr"),
+          safeGet("/hr/taskshr"),
+          safeGet("/hr/payrollhr"),
+          safeGet("/hr/jobs"),
         ]);
 
         const totalEmployees = employeesRes.length || 0;

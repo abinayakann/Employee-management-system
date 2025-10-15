@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../services/api";
 import { 
   FaUser, FaEnvelope, FaPhone, FaBuilding, 
   FaUserTie, FaMapMarkerAlt, FaBirthdayCake, FaUserCircle 
@@ -27,8 +27,8 @@ const MyProfile = () => {
   // Fetch profile from backend
   const fetchProfile = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/employee/profile/myprofile",
+      const res = await API.get(
+        "/employee/profile/myprofile",
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const emp = res.data.employee || res.data;
@@ -66,8 +66,8 @@ const MyProfile = () => {
       const payload = { ...formData };
       delete payload.gender; // keep gender frontend-only if you want
 
-      const res = await axios.put(
-        "http://localhost:5000/api/employee/profile/myprofile",
+      const res = await API.put(
+        "/employee/profile/myprofile",
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );

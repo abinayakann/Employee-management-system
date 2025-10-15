@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../services/api";
 import "./EmployeeAdmin.css";
 
 const AdminEmployee = ({ theme = "dark" }) => {
@@ -22,7 +22,7 @@ const AdminEmployee = ({ theme = "dark" }) => {
 
   const fetchEmployees = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/admin/employees", {
+      const res = await API.get("/admin/employees", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEmployees(Array.isArray(res.data) ? res.data : []);
@@ -39,7 +39,7 @@ const AdminEmployee = ({ theme = "dark" }) => {
     if (emp.isHR) return;
     if (!window.confirm("Are you sure you want to delete this employee?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/admin/employees/${emp._id}`, {
+      await API.delete(`/admin/employees/${emp._id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEmployees(prev => prev.filter(e => e._id !== emp._id));
@@ -64,8 +64,7 @@ const AdminEmployee = ({ theme = "dark" }) => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(
-        `http://localhost:5000/api/admin/employees/${editingEmployee}`,
+      const res = await API.put(`/admin/employees/${editingEmployee}`,
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );

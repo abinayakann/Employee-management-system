@@ -9,6 +9,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import API from "../../services/api";
 import "./AdminAttendance.css";
 
 const AdminAttendance = () => {
@@ -16,9 +17,16 @@ const AdminAttendance = () => {
   const [selectedMonth, setSelectedMonth] = useState("All");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/admin/attendancead")
-      .then((res) => res.json())
-      .then((data) => setAttendance(data));
+    const fetchAttendance = async () => {
+      try {
+        const { data } = await API.get("/admin/attendancead");
+         setAttendance(data);
+      } catch (error) {
+        console.error("Error fetching attendance:", error);
+     }
+    };
+
+    fetchAttendance();
   }, []);
 
   // Filter & compute working hours

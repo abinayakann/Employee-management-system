@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../services/api";
 import "./payrollhr.css";
 
 const PayrollHR = () => {
@@ -15,7 +15,7 @@ const PayrollHR = () => {
   const fetchPayrolls = async () => {
     try {
       const token = getToken();
-      const res = await axios.get("http://localhost:5000/api/hr/payrollhr", {
+      const res = await API.get("/hr/payrollhr", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPayrolls(res.data);
@@ -31,8 +31,8 @@ const PayrollHR = () => {
   const handleDownload = async (id) => {
     try {
       const token = getToken();
-      const res = await axios.get(
-        `http://localhost:5000/api/hr/payrollhr/download/${id}`,
+      const res = await API.get(
+        `/hr/payrollhr/download/${id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           responseType: "blob",
@@ -53,8 +53,8 @@ const PayrollHR = () => {
   const handleMarkPaid = async (id) => {
     try {
       const token = getToken();
-      await axios.put(
-        `http://localhost:5000/api/hr/payrollhr/${id}`,
+      await API.put(
+        `/hr/payrollhr/${id}`,
         { status: "Paid" },
         {
           headers: { Authorization: `Bearer ${token}` },

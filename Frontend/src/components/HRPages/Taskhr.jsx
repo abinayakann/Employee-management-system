@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../services/api";
 import "./dashpagehr.css";
 
 const Taskshr = () => {
@@ -27,7 +27,7 @@ const Taskshr = () => {
     setLoading(true);
     try {
       const token = getToken();
-      const res = await axios.get("http://localhost:5000/api/hr/taskshr", {
+      const res = await API.get("/hr/taskshr", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks(res.data);
@@ -43,7 +43,7 @@ const Taskshr = () => {
   const fetchEmployees = async () => {
     try {
       const token = getToken();
-      const res = await axios.get("http://localhost:5000/api/hr/employeehr", {
+      const res = await API.get("/hr/employeehr", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEmployees(res.data);
@@ -60,7 +60,7 @@ const Taskshr = () => {
     e.preventDefault();
     try {
       const token = getToken();
-      await axios.post("http://localhost:5000/api/hr/taskshr", form, {
+      await API.post("/hr/taskshr", form, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
