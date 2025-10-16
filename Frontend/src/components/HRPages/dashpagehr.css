@@ -290,6 +290,56 @@
   transform: scale(1.05);
 }
 
+/* Employee List Table */
+.employee-list-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: rgba(42, 42, 64, 0.85);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.employee-list-table th,
+.employee-list-table td {
+  padding: 12px 15px;
+  text-align: left;
+  color: #f1f1f1;
+  font-size: 14px;
+}
+
+.employee-list-table th {
+  background: #1b1b2f;
+  color: #00adb5;
+  font-weight: 600;
+}
+
+.employee-list-table tr:nth-child(even) {
+  background: rgba(25, 25, 40, 0.8);
+}
+
+.employee-list-table tr:hover {
+  background: rgba(0, 173, 181, 0.08);
+}
+
+.table-actions button {
+  background: linear-gradient(135deg, #00adb5, #007b83);
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-right: 5px;
+  transition: all 0.3s ease;
+}
+
+.table-actions button:hover {
+  background: linear-gradient(135deg, #007b83, #00adb5);
+  transform: scale(1.05);
+}
+
+
 /* 📅 Pagination */
 .pagination {
   display: flex;

@@ -7,7 +7,6 @@ const Listhr = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [departmentFilter, setDepartmentFilter] = useState("All");
 
-  // Form states for add/update
   const [formData, setFormData] = useState({
     name: "",
     department: "",
@@ -21,7 +20,6 @@ const Listhr = () => {
 
   const [editingId, setEditingId] = useState(null);
 
-  // Fetch employees
   useEffect(() => {
     fetchEmployees();
   }, []);
@@ -38,7 +36,6 @@ const Listhr = () => {
     }
   };
 
-  // Add or Update employee (with optimistic UI update)
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
@@ -48,7 +45,6 @@ const Listhr = () => {
         const res = await API.put(`/hr/employeehr/${editingId}`, formData, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        // Update the employee locally
         setEmployees((prev) =>
           prev.map((emp) => (emp._id === editingId ? res.data : emp))
         );
@@ -56,11 +52,8 @@ const Listhr = () => {
         const res = await API.post("/hr/employeehr", formData, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        // Add the new employee immediately
         setEmployees((prev) => [...prev, res.data]);
       }
-
-      // Reset form
       setFormData({
         name: "",
         department: "",
@@ -77,7 +70,6 @@ const Listhr = () => {
     }
   };
 
-  // Delete employee
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token");
@@ -90,13 +82,11 @@ const Listhr = () => {
     }
   };
 
-  // Edit employee
   const handleEdit = (emp) => {
     setFormData(emp);
     setEditingId(emp._id);
   };
 
-  // Apply filters
   const filteredEmployees = employees.filter(
     (emp) =>
       (departmentFilter === "All" || emp.department === departmentFilter) &&
@@ -199,44 +189,48 @@ const Listhr = () => {
         </select>
       </div>
 
-      {/* Employee Cards */}
-      <div className="employee-cards">
-        {filteredEmployees.length > 0 ? (
-          filteredEmployees.map((emp) => (
-            <div className="employee-card" key={emp._id}>
-              <h3>{emp.name}</h3>
-              <p>
-                <strong>Department:</strong> {emp.department}
-              </p>
-              <p>
-                <strong>Designation:</strong> {emp.designation}
-              </p>
-              <p>
-                <strong>Salary:</strong> ${emp.salary}
-              </p>
-              <p>
-                <strong>Email:</strong> {emp.email}
-              </p>
-              <p>
-                <strong>Phone:</strong> {emp.phone}
-              </p>
-              <p>
-                <strong>DOB:</strong>{" "}
-                {emp.dob ? new Date(emp.dob).toLocaleDateString() : "-"}
-              </p>
-              <p>
-                <strong>Address:</strong> {emp.address}
-              </p>
-              <div className="card-actions">
-                <button onClick={() => handleEdit(emp)}>Edit</button>
-                <button onClick={() => handleDelete(emp._id)}>Delete</button>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p>No employees found</p>
-        )}
-      </div>
+      {/* Employee List Table */}
+      <table className="employee-list-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Designation</th>
+            <th>Salary</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>DOB</th>
+            <th>Address</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredEmployees.length > 0 ? (
+            filteredEmployees.map((emp) => (
+              <tr key={emp._id}>
+                <td>{emp.name}</td>
+                <td>{emp.department}</td>
+                <td>{emp.designation}</td>
+                <td>${emp.salary}</td>
+                <td>{emp.email}</td>
+                <td>{emp.phone}</td>
+                <td>{emp.dob ? new Date(emp.dob).toLocaleDateString() : "-"}</td>
+                <td>{emp.address}</td>
+                <td className="table-actions">
+                  <button onClick={() => handleEdit(emp)}>Edit</button>
+                  <button onClick={() => handleDelete(emp._id)}>Delete</button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="9" style={{ textAlign: "center", padding: "15px" }}>
+                No employees found
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };
