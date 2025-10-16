@@ -1,10 +1,12 @@
 import axios from "axios";
 
-// Use environment variable if present, otherwise fallback to hardcoded URL
+// Ensure no trailing slash and fallback to correct URL
+const BASE_URL = import.meta.env.VITE_API_URL
+  ? import.meta.env.VITE_API_URL.replace(/\/$/, "")
+  : "https://employee-management-systems-4a9a.onrender.com";
+
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL 
-    ? import.meta.env.VITE_API_URL + "/api"
-    : "https://employee-management-systems-4a9a.onrender.com/api",
+  baseURL: `${BASE_URL}/api`,
 });
 
 export default API;
