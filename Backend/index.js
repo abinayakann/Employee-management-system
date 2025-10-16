@@ -28,7 +28,10 @@ const taskshr = require("./Routes/tasksRoutes-hr");
 require("dotenv").config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://employeemanagement-frontend.netlify.app",
+  credentials: true
+}));
 app.use(express.json());
 
 
