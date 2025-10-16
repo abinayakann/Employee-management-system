@@ -36,24 +36,39 @@ const Listhr = () => {
     }
   };
 
+  // Validate required fields
+  const validateForm = () => {
+    const { name, department, designation, salary, email } = formData;
+    if (!name || !department || !designation || !salary || !email) {
+      alert("Please fill in all required fields: Name, Department, Designation, Salary, Email.");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     const token = localStorage.getItem("token");
 
     try {
+      const payload = { ...formData, salary: Number(formData.salary) }; // ensure salary is number
+
       if (editingId) {
-        const res = await API.put(`/hr/employeehr/${editingId}`, formData, {
+        const res = await API.put(`/hr/employeehr/${editingId}`, payload, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setEmployees((prev) =>
           prev.map((emp) => (emp._id === editingId ? res.data : emp))
         );
       } else {
-        const res = await API.post("/hr/employeehr", formData, {
+        const res = await API.post("/hr/employeehr", payload, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setEmployees((prev) => [...prev, res.data]);
       }
+
       setFormData({
         name: "",
         department: "",
@@ -66,7 +81,8 @@ const Listhr = () => {
       });
       setEditingId(null);
     } catch (err) {
-      console.error("Error saving employee:", err);
+      console.error("Error saving employee:", err.response?.data || err.message);
+      alert(err.response?.data?.message || "Failed to save employee. Check the input.");
     }
   };
 
@@ -189,7 +205,7 @@ const Listhr = () => {
         </select>
       </div>
 
-      {/* Employee List Table */}
+      {/* Employee Table */}
       <table className="employee-list-table">
         <thead>
           <tr>
