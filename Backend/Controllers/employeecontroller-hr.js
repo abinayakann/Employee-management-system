@@ -13,6 +13,7 @@ const getEmployeeshr = async (req, res) => {
 // Add new employee
 const addEmployeehr = async (req, res) => {
   try {
+    console.log("Received data:", req.body);
     const newEmployee = new Employeehr(req.body);
     await newEmployee.save();
     res.status(201).json(newEmployee);

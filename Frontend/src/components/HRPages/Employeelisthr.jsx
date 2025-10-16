@@ -7,6 +7,7 @@ const Listhr = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [departmentFilter, setDepartmentFilter] = useState("All");
 
+  // Form state for add/update
   const [formData, setFormData] = useState({
     name: "",
     department: "",
@@ -40,7 +41,9 @@ const Listhr = () => {
   const validateForm = () => {
     const { name, department, designation, salary, email } = formData;
     if (!name || !department || !designation || !salary || !email) {
-      alert("Please fill in all required fields: Name, Department, Designation, Salary, Email.");
+      alert(
+        "Please fill in all required fields: Name, Department, Designation, Salary, Email."
+      );
       return false;
     }
     return true;
@@ -48,12 +51,14 @@ const Listhr = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!validateForm()) return;
 
     const token = localStorage.getItem("token");
 
     try {
-      const payload = { ...formData, salary: Number(formData.salary) }; // ensure salary is number
+      // Ensure salary is a number before sending to backend
+      const payload = { ...formData, salary: Number(formData.salary) };
 
       if (editingId) {
         const res = await API.put(`/hr/employeehr/${editingId}`, payload, {
@@ -69,6 +74,7 @@ const Listhr = () => {
         setEmployees((prev) => [...prev, res.data]);
       }
 
+      // Reset form after submit
       setFormData({
         name: "",
         department: "",
@@ -82,7 +88,7 @@ const Listhr = () => {
       setEditingId(null);
     } catch (err) {
       console.error("Error saving employee:", err.response?.data || err.message);
-      alert(err.response?.data?.message || "Failed to save employee. Check the input.");
+      alert(err.response?.data?.error || "Failed to save employee. Check the input.");
     }
   };
 
@@ -115,7 +121,7 @@ const Listhr = () => {
       <h2>Employee List</h2>
       <p>Manage employees (Add, Edit, Delete)</p>
 
-      {/* Form */}
+      {/* Employee Form */}
       <form className="employee-form" onSubmit={handleSubmit}>
         <input
           type="text"
