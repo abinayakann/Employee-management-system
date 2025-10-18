@@ -9,6 +9,7 @@ const Listhr = () => {
 
   // Form state for add/update
   const [formData, setFormData] = useState({
+    EmployeeID: "",
     name: "",
     department: "",
     designation: "",
@@ -123,6 +124,14 @@ const Listhr = () => {
 
       {/* Employee Form */}
       <form className="employee-form" onSubmit={handleSubmit}>
+        
+        <input
+         type="text"
+         placeholder="Employee ID"
+         value={formData.EmployeeID}
+         onChange={(e) => setFormData({ ...formData, EmployeeID: e.target.value })}
+         required
+        />
         <input
           type="text"
           placeholder="Name"
