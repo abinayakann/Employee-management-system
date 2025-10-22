@@ -1,6 +1,7 @@
-const Tasks = require("../models/Tasks");
 const mongoose = require("mongoose");
+const Tasks = require("../models/Tasks");
 const EmployeeHR = require("../models/Employeehr");
+const Employee = require("../models/Employee"); 
 
 // ✅ Create Task
 const createTask = async (req, res) => {
@@ -10,54 +11,59 @@ const createTask = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(employeeId))
       return res.status(400).json({ message: "Invalid employee ID" });
 
-    const employee = await EmployeeHR.findById(employeeId);
-    if (!employee) return res.status(404).json({ message: "Employee not found" });
+    // ✅ Find employee in HR collection
+    const employeeHR = await EmployeeHR.findById(employeeId);
+    if (!employeeHR)
+      return res.status(404).json({ message: "Employee not found in HR records" });
 
+    // ✅ Find corresponding employee in Employee (login) collection using EmployeeID
+    const employeeLogin = await Employee.findOne({ EmployeeID: employeeHR.EmployeeID });
+    if (!employeeLogin)
+      return res.status(404).json({ message: "Employee not found in login collection" });
+
+    // ✅ Create new task linked to Employee login _id
     const task = new Tasks({
-      assignedTo: employee._id,          // reference EmployeeHR _id
-      assignedBy: req.user.id,           // HR from JWT
+      assignedTo: employeeLogin._id, // reference login Employee _id
+      assignedBy: req.user.id, // HR _id from JWT
       title,
       description,
       deadline,
       status,
       priority: priority || "Medium",
-      department: employee.department,
+      department: employeeHR.department,
     });
 
     await task.save();
-    res.status(201).json(task);
+    res.status(201).json({ message: "Task created successfully", task });
   } catch (err) {
     console.error("Create Task Error:", err.message);
     res.status(500).json({ message: err.message });
   }
 };
 
-// ✅ Get all tasks (HR)
+// ✅ Get all tasks created by HR
 const getTasks = async (req, res) => {
   try {
-    const tasks = await Tasks.find({ assignedBy: req.user.id }).populate(
-      "assignedTo",
-      "name EmployeeID"
-    );
+    const tasks = await Tasks.find({ assignedBy: req.user.id })
+      .populate("assignedTo", "name EmployeeID"); // get name + EmployeeID
 
     const tasksWithInfo = await Promise.all(
       tasks.map(async (task) => {
-        const employeeID = task.assignedTo ? task.assignedTo.EmployeeID : null;
-
-        let hrData = null;
-        if (employeeID) {
-          hrData = await EmployeeHR.findOne({ EmployeeID: employeeID });
-        }
+        const hrData = await EmployeeHR.findOne({
+          EmployeeID: task.assignedTo?.EmployeeID,
+        });
 
         return {
           _id: task._id,
           title: task.title,
-          description: task.description,
+          description: task.description || "-",
           assignedTo: task.assignedTo ? task.assignedTo.name : "Unknown",
           department: hrData ? hrData.department : "-",
           status: task.status || "-",
           priority: task.priority || "Medium",
-          deadline: task.deadline ? new Date(task.deadline).toLocaleDateString() : "-",
+          deadline: task.deadline
+            ? new Date(task.deadline).toLocaleDateString()
+            : "-",
         };
       })
     );
@@ -69,7 +75,7 @@ const getTasks = async (req, res) => {
   }
 };
 
-// ✅ Get task by filter (employee, status)
+// ✅ Filter tasks (by employee, status)
 const getTasksByFilter = async (req, res) => {
   try {
     const { employeeId, status } = req.query;
@@ -82,22 +88,21 @@ const getTasksByFilter = async (req, res) => {
 
     const tasksWithInfo = await Promise.all(
       tasks.map(async (task) => {
-        const employeeID = task.assignedTo ? task.assignedTo.EmployeeID : null;
-
-        let hrData = null;
-        if (employeeID) {
-          hrData = await EmployeeHR.findOne({ EmployeeID: employeeID });
-        }
+        const hrData = await EmployeeHR.findOne({
+          EmployeeID: task.assignedTo?.EmployeeID,
+        });
 
         return {
           _id: task._id,
           title: task.title,
-          description: task.description,
+          description: task.description || "-",
           assignedTo: task.assignedTo ? task.assignedTo.name : "Unknown",
           department: hrData ? hrData.department : "-",
           status: task.status || "-",
           priority: task.priority || "Medium",
-          deadline: task.deadline ? new Date(task.deadline).toLocaleDateString() : "-",
+          deadline: task.deadline
+            ? new Date(task.deadline).toLocaleDateString()
+            : "-",
         };
       })
     );
@@ -118,7 +123,7 @@ const updateTask = async (req, res) => {
     const task = await Tasks.findByIdAndUpdate(id, updatedData, { new: true });
     if (!task) return res.status(404).json({ message: "Task not found" });
 
-    res.status(200).json(task);
+    res.status(200).json({ message: "Task updated successfully", task });
   } catch (err) {
     console.error("Update Task Error:", err.message);
     res.status(500).json({ message: err.message });
@@ -139,4 +144,10 @@ const deleteTask = async (req, res) => {
   }
 };
 
-module.exports = { createTask, getTasks, getTasksByFilter, updateTask, deleteTask };
+module.exports = {
+  createTask,
+  getTasks,
+  getTasksByFilter,
+  updateTask,
+  deleteTask,
+};
